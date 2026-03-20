@@ -4,18 +4,18 @@ user = {
   password              = "parallels",
   force_password_change = true,
 }
-version      = "22.04.5"
-machine_name = "ubuntu_22.04_LTS"
-hostname     = "ubuntu-22.04"
+version      = "24.04.4"
+machine_name = "ubuntu_24.04_LTS"
+hostname     = "ubuntu-24.04"
 machine_specs = {
   cpus      = 2,
   memory    = 2048,
   disk_size = "65536",
 }
-iso_url          = "https://cdimage.ubuntu.com/releases/22.04/release/ubuntu-22.04.5-live-server-arm64.iso"
-iso_checksum     = "sha256:eafec62cfe760c30cac43f446463e628fada468c2de2f14e0e2bc27295187505"
+iso_url          = "/Users/zayaan.dulmeer/Downloads/ubuntu-24.04.4-live-server-arm64.iso"
+iso_checksum = "sha256:9a6ce6d7e66c8abed24d24944570a495caca80b3b0007df02818e13829f27f32"
 
 addons = [
   "desktop"
 ]
-create_vagrant_box = false
+create_vagrant_box = false 

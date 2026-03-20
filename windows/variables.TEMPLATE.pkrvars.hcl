@@ -1,5 +1,5 @@
-iso_url      = "" #path to your generated iso
-iso_checksum = "" #the generated iso checksum in this format "sha256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", check readme in how to generate
+iso_url      = "/Users/zayaan.dulmeer/Downloads/26100.4349.250607-1500.ge_release_svc_refresh_CLIENTCONSUMER_RET_A64FRE_en-us.iso"
+iso_checksum = "sha256:9b2efd781a9f306938f508353d83e36e9dff833e010b73bd3d19c268fef96c2a" 
 machine_specs = {
   cpus      = 2,
   memory    = 2048,
