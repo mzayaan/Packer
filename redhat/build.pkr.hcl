@@ -3,6 +3,15 @@ build {
     "source.parallels-iso.image"
   ]
 
+  provisioner "shell" {
+    inline = [
+      "sudo dnf -y update",
+      "sudo reboot"
+    ]
+    expect_disconnect = true # This tells Packer it's okay for the VM to restart
+  }
+
+
   ## Register system with Red Hat for access to online repos.
   provisioner "shell" {
     environment_vars = [
