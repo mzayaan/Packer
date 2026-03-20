@@ -1,4 +1,8 @@
 #!/bin/sh -eux
+# Force the clock to update so apt won't fail
+echo "Forcing time sync..."
+sudo systemctl restart systemd-timesyncd
+sleep 15
 export DEBIAN_FRONTEND=noninteractive
 
 echo "disable release-upgrades"
@@ -31,5 +35,7 @@ apt-get -y update;
 
 echo "upgrade all installed packages incl. kernel and kernel headers"
 apt-get -y dist-upgrade -o Dpkg::Options::="--force-confnew";
-
+apt-get -y -o Acquire::Check-Valid-Until=false update
+ 
+ 
 reboot

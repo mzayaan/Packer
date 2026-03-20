@@ -1,62 +1,50 @@
 lang en_US.UTF-8
 keyboard us
 timezone UTC
-rootpw --plaintext ${username}
+rootpw --plaintext parallels
 reboot --eject
 cdrom
-bootloader --timeout=1 --location=mbr --append="net.ifnames=0 biosdevname=0"
+
+
+bootloader --timeout=1 --append="net.ifnames=0 biosdevname=0"
 zerombr
 clearpart --all --initlabel
-autopart --nohome --nolvm --noboot
-network --bootproto=dhcp
+part /boot/efi --fstype="efi" --size=600
+part /boot --fstype="ext4" --size=2048
+part / --fstype="xfs" --grow --size=1
+
+network --bootproto=dhcp --device=link --activate
 firstboot --disable
 selinux --permissive
 firewall --enabled --ssh
-user --name=${username} --plaintext --password ${password}
+
+user --name=parallels --plaintext --password parallels --groups=wheel
+
 
 %packages --ignoremissing --excludedocs
-${package}
+
+@^workstation-product-environment
 openssh-clients
 sudo
-selinux-policy-devel
 wget
-nfs-utils
-net-tools
 tar
-bzip2
-deltarpm
-rsync
-dnf-utils
-redhat-lsb-core
+make
+gcc
+kernel-devel
+kernel-headers
 elfutils-libelf-devel
-network-scripts
--fprintd-pam
--intltool
--iwl*-firmware
--microcode_ctl
+dnf5-plugins
 %end
 
-%post
-# sudo
-echo 'Defaults:${username} !requiretty' > /etc/sudoers.d/${username}
-echo '%${username} ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/${username}
-chmod 440 /etc/sudoers.d/${username}
+%post --log=/root/ks-post.log
 
-rm -f /etc/sysconfig/network-scripts/ifcfg-e*
-cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << _EOF_
-TYPE=Ethernet
-PROXY_METHOD=none
-             BROWSER_ONLY=no
-             BOOTPROTO=dhcp
-             DEFROUTE=yes
-IPV4_FAILURE_FATAL=no
-IPV6INIT=yes
-IPV6_AUTOCONF=yes
-IPV6_DEFROUTE=yes
-             IPV6_FAILURE_FATAL=no
-             IPV6_ADDR_GEN_MODE=stable-privacy
-             NAME=eth0
-DEVICE=eth0
-ONBOOT=yes
-_EOF_
+echo 'Defaults:parallels !requiretty' > /etc/sudoers.d/parallels
+echo '%parallels ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/parallels
+chmod 440 /etc/sudoers.d/parallels
+
+
+systemctl set-default graphical.target
+
+
+systemctl disable gnome-initial-setup.service
 %end
