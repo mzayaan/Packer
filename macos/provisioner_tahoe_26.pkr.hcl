@@ -30,6 +30,7 @@ source "parallels-ipsw" "tahoe_26" {
     execute_only_once = true
   }
 
+
   boot_screen_config {
     boot_command     = ["<leftShiftOn><tab><leftShiftOff><spacebar>"]
     screen_name      = "Language"
